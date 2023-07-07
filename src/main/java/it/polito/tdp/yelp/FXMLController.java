@@ -5,6 +5,8 @@
 package it.polito.tdp.yelp;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import it.polito.tdp.yelp.model.Model;
 import javafx.event.ActionEvent;
@@ -37,7 +39,7 @@ public class FXMLController {
     private TextField txtX2; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbCitta"
-    private ComboBox<?> cmbCitta; // Value injected by FXMLLoader
+    private ComboBox<String> cmbCitta; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbB1"
     private ComboBox<?> cmbB1; // Value injected by FXMLLoader
@@ -80,5 +82,9 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	
+    	List<String> lista= new LinkedList<>();
+    	lista.addAll(this.model.getAllCity());
+    	cmbCitta.getItems().addAll(this.model.listaSenzaDuplicati(lista));
     }
 }
