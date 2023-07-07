@@ -5,6 +5,7 @@
 package it.polito.tdp.yelp;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,7 +43,7 @@ public class FXMLController {
     private ComboBox<String> cmbCitta; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbB1"
-    private ComboBox<?> cmbB1; // Value injected by FXMLLoader
+    private ComboBox<String> cmbB1; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbB2"
     private ComboBox<?> cmbB2; // Value injected by FXMLLoader
@@ -53,11 +54,40 @@ public class FXMLController {
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	
+        String city=cmbCitta.getValue();
+    	
+    	
+//    	controlli sull'input
+    	if (city==null) {
+    		this.txtResult.setText("Inersire una città.\n");
+    		return;
+    	}
+    	
+//    	creazione grafo
+    	this.model.creaGrafo(city);
+    	
+    	List<String> verticiN = (this.model.getNameVertici());
+    	Collections.sort(verticiN);
+    	
+    	cmbB1.getItems().addAll(verticiN);
+    	
+    	
+    	
+    	
+//    	stampa grafo
+    	this.txtResult.setText("Grafo creato.\n");
+    	this.txtResult.appendText("Ci sono " + this.model.nVertici() + " vertici\n");
+    	this.txtResult.appendText("Ci sono " + this.model.nArchi() + " archi\n\n");
+//    	this.txtResult.appendText("Ci sono " + this.model.stampaPesi() + " pesi\n\n");
+    	
     }
 
     @FXML
     void doCalcolaLocaleDistante(ActionEvent event) {
 
+    	String b = cmbB1.getValue();
+    	
+    	this.txtResult.appendText(this.model.tutteDistanze(b));
     	
     }
 

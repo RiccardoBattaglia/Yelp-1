@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.javadocmd.simplelatlng.*;
+import com.javadocmd.simplelatlng.LatLngTool;
+import com.javadocmd.simplelatlng.util.LengthUnit;
+
 import it.polito.tdp.yelp.model.Business;
 import it.polito.tdp.yelp.model.Review;
 import it.polito.tdp.yelp.model.User;
@@ -109,6 +114,18 @@ public class YelpDao {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public double getPeso(Business v1, Business v2) {
+		// TODO Auto-generated method stub
+		double peso = 0.0;
+		
+		LatLng v1p = new LatLng(v1.getLatitude(), v1.getLongitude());
+		LatLng v2p = new LatLng(v2.getLatitude(), v2.getLongitude());
+		
+		peso=LatLngTool.distance(v1p, v2p, LengthUnit.KILOMETER);
+		
+		return peso;
 	}
 	
 	
